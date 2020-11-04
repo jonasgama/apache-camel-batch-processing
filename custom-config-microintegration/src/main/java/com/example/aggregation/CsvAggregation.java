@@ -1,6 +1,6 @@
-package com.man.vin.truck.batch.file.aggregation;
+package com.example.aggregation;
 
-import com.man.vin.truck.batch.file.dataformat.CsvItem;
+import com.example.dataformat.CsvItem;
 import org.apache.camel.AggregationStrategy;
 import org.apache.camel.Exchange;
 import org.springframework.stereotype.Component;
@@ -12,11 +12,6 @@ public class CsvAggregation implements AggregationStrategy {
 
         public Exchange aggregate(Exchange oldExchange, Exchange newExchange) {
             CsvItem item = newExchange.getIn().getBody(CsvItem.class);
-            String fileName = newExchange.getIn().getHeader("CamelFileName").toString();
-            if(!fileName.contains("hard") && !fileName.contains("soft")){
-                return null;
-            }
-            item.setFileName(fileName);
             List<CsvItem> items = new ArrayList<>();
             if (oldExchange == null) {
                 items.add(item);

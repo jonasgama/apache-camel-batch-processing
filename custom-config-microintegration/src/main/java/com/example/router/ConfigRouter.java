@@ -1,8 +1,8 @@
-package com.man.vin.truck.batch.file.router;
+package com.example.router;
 
-import com.man.vin.truck.batch.file.process.PersistProcess;
-import com.man.vin.truck.batch.file.aggregation.CsvAggregation;
-import com.man.vin.truck.batch.file.dataformat.CsvItem;
+import com.example.aggregation.CsvAggregation;
+import com.example.process.PersistProcess;
+import com.example.dataformat.CsvItem;
 import org.apache.camel.LoggingLevel;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.dataformat.bindy.csv.BindyCsvDataFormat;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class VinRouter extends RouteBuilder {
+public class ConfigRouter extends RouteBuilder {
 
     private DataFormat bindy;
 
@@ -27,7 +27,7 @@ public class VinRouter extends RouteBuilder {
     @Value("${required.size.to.persist}")
     public Integer requiredSize;
 
-    public VinRouter(){
+    public ConfigRouter(){
         bindy = new BindyCsvDataFormat(CsvItem.class);
     }
 
