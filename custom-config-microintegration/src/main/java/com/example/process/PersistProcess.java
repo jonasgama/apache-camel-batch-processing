@@ -1,7 +1,6 @@
 package com.example.process;
 
 import com.example.entity.ConfigEntity;
-import com.man.vin.truck.batch.file.document.VinDocument;
 import com.example.dataformat.CsvItem;
 import com.example.service.ConfigService;
 import org.apache.camel.Exchange;
