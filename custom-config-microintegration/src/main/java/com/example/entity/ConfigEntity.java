@@ -13,6 +13,9 @@ public class ConfigEntity {
     @Column(length=30)
     private String configuration;
 
+    public ConfigEntity() {
+
+    }
     public ConfigEntity(String code, String configuration) {
         this.code = code;
         this.configuration = configuration;

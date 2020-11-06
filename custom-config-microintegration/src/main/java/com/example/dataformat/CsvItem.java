@@ -3,12 +3,12 @@ package com.example.dataformat;
 import org.apache.camel.dataformat.bindy.annotation.CsvRecord;
 import org.apache.camel.dataformat.bindy.annotation.DataField;
 
-@CsvRecord(separator = ",", skipFirstLine = false)
+@CsvRecord(separator = ";", skipFirstLine = false)
 public class CsvItem {
 
-    @DataField(pos=1)
+    @DataField(pos =1, columnName="A")
     private String code;
-    @DataField(pos=2)
+    @DataField(pos= 2, columnName="B")
     private String configuration;
 
     public String getConfiguration() {

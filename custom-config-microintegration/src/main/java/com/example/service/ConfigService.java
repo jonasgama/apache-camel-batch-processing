@@ -12,6 +12,6 @@ public class ConfigService {
     private ConfigRepository repository;
 
     public void save(ConfigEntity entity){
-        repository.save(entity);
+        repository.saveAndFlush(entity);
     }
 }

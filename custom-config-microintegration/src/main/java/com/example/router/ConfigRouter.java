@@ -3,7 +3,9 @@ package com.example.router;
 import com.example.aggregation.CsvAggregation;
 import com.example.process.PersistProcess;
 import com.example.dataformat.CsvItem;
+import org.apache.camel.Exchange;
 import org.apache.camel.LoggingLevel;
+import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.dataformat.bindy.csv.BindyCsvDataFormat;
 import org.apache.camel.model.dataformat.JsonLibrary;
@@ -39,8 +41,7 @@ public class ConfigRouter extends RouteBuilder {
 
     private void routing(){
         from("{{router.from}}")
-                .split(body()
-                .tokenize("\n")).stopOnException()
+                .split(body().tokenize("\n")).stopOnException()
                 .streaming().stopOnException()
                 .unmarshal(bindy)
                 .aggregate(constant(true),
@@ -56,9 +57,16 @@ public class ConfigRouter extends RouteBuilder {
         onException(Exception.class)
                 .handled(true)
                 .maximumRedeliveries(3)
+                .onRedelivery(new Processor() {
+                    @Override
+                    public void process(Exchange exchange) throws Exception {
+                        Object camelExceptionCaught = exchange.getProperty("CamelExceptionCaught");
+                        exchange.getIn().setBody(camelExceptionCaught);
+                    }
+                })
                 .redeliveryDelay(5000)
                 .log(LoggingLevel.ERROR,
-                "An Error has been found on file: ${in.header.CamelFileName}");
+                "An Error has been found on file: ${in.header.CamelFileName}: ${body}");
     }
 
 
