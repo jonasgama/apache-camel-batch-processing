@@ -1,4 +1,4 @@
-package com.example.customconfigapi.service
+package com.example.customconfigapi.repository
 
 import com.example.customconfigapi.entity.ConfigEntity
 import org.springframework.data.domain.Page
